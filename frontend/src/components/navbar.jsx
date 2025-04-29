@@ -23,7 +23,6 @@ export default function Navbar() {
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-6 text-gray-700">
           <Link to="/" className="hover:text-gray-900">Ana Sayfa</Link>
-          <Link to="/kategoriler" className="hover:text-gray-900">Kategoriler</Link>
           <Link to="/hakkimizda" className="hover:text-gray-900">Hakkımızda</Link>
           <Link to="/iletisim" className="hover:text-gray-900">İletişim</Link>
         </div>

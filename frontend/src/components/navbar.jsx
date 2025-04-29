@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.svg';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo / Brand */}
-        <div className="text-2xl font-bold text-orange-600">
-          NeredeNeYenir
+        <div className="flex items-center space-x-3">
+          <img
+            src={logo}
+            alt="NeredeNeYenir Logo"
+            className="h-12 md:h-14 w-auto"
+          />
+          <span className="text-2xl font-bold text-orange-600">
+            NeredeNeYenir
+          </span>
         </div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-6 text-gray-700">
-          <a href="#" className="hover:text-gray-900">Ana Sayfa</a>
-          <a href="#" className="hover:text-gray-900">Kategoriler</a>
-          <a href="#" className="hover:text-gray-900">Hakkımızda</a>
-          <a href="#" className="hover:text-gray-900">İletişim</a>
+          <Link to="/" className="hover:text-gray-900">Ana Sayfa</Link>
+          <Link to="/kategoriler" className="hover:text-gray-900">Kategoriler</Link>
+          <Link to="/hakkimizda" className="hover:text-gray-900">Hakkımızda</Link>
+          <Link to="/iletisim" className="hover:text-gray-900">İletişim</Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -27,12 +36,10 @@ export default function Navbar() {
             aria-label="Toggle menu"
           >
             {isOpen ? (
-              // X icon
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              // Hamburger icon
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -44,10 +51,10 @@ export default function Navbar() {
       {/* Mobile Menu Links */}
       {isOpen && (
         <div className="md:hidden bg-white px-4 pb-4 space-y-2">
-          <a href="#" className="block text-gray-700 hover:text-gray-900">Ana Sayfa</a>
-          <a href="#" className="block text-gray-700 hover:text-gray-900">Kategoriler</a>
-          <a href="#" className="block text-gray-700 hover:text-gray-900">Hakkımızda</a>
-          <a href="#" className="block text-gray-700 hover:text-gray-900">İletişim</a>
+          <Link to="/" className="block text-gray-700 hover:text-gray-900">Ana Sayfa</Link>
+          <Link to="/kategoriler" className="block text-gray-700 hover:text-gray-900">Kategoriler</Link>
+          <Link to="/hakkimizda" className="block text-gray-700 hover:text-gray-900">Hakkımızda</Link>
+          <Link to="/iletisim" className="block text-gray-700 hover:text-gray-900">İletişim</Link>
         </div>
       )}
     </nav>

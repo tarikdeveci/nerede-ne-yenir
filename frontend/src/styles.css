@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+
+@layer utilities {
+    .perspective-500 {
+      perspective: 500px;
+    }
+    .logo-3d {
+      transform-style: preserve-3d;
+      animation: spinY 10s linear infinite;
+    }
+    @keyframes spinY {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+  }
+  

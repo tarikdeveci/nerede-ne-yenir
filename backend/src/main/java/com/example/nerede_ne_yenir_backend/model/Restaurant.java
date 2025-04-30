@@ -1,8 +1,11 @@
-package com.example.neredeneenir.model;
+package com.example.nerede_ne_yenir_backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Restaurant: Her restoran bir kategoriye bağlıdır.
+ */
 @Entity
 @Table(name = "restaurant")
 @Data
@@ -16,14 +19,14 @@ public class Restaurant {
 
     @ManyToOne // Bir restoran sadece bir kategoriye ait olur
     @JoinColumn(name = "category_id", nullable = false)
-    private FoodCategory category;
+    private FoodCategory category; // Restoranın ait olduğu kategori
 
     @Column(nullable = false)
     private String restaurantName;
 
-    private String priceRange; // ₺, ₺₺, ₺₺₺
+    private String priceRange; // Örnek: ₺, ₺₺, ₺₺₺
 
-    private Double averageRating; // Otomatik hesaplanacak
+    private Double averageRating; // Yorumlardan ortalama puan
 
-    private Integer reviewCount; // Otomatik artacak
+    private Integer reviewCount; // Toplam yorum sayısı
 }

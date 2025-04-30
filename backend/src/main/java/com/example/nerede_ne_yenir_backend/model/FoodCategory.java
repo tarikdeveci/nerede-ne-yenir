@@ -1,19 +1,22 @@
-package com.example.neredeneenir.model;
+package com.example.nerede_ne_yenir_backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * FoodCategory: Yiyecek kategorilerini temsil eder (örnek: Döner, Tatlı)
+ */
 @Entity
-@Table(name = "food_category") // SQL tablosunun ismi
-@Data // Getter, Setter, toString gibi metotları otomatik ekler (Lombok)
+@Table(name = "food_category")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class FoodCategory {
 
-    @Id // Primary key olduğunu belirtir
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Otomatik artan
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Otomatik artan ID
     private Long categoryId;
 
     @Column(nullable = false, unique = true)
-    private String categoryName; // Örn: "Döner", "Tatlı"
+    private String categoryName; // Örn: "Pizza", "Ev Yemekleri"
 }

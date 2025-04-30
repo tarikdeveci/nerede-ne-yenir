@@ -9,7 +9,7 @@ export default function RestaurantList({ restaurants = [] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {restaurants.map((rest) => (
-        <RestaurantCard key={rest.id} restaurant={rest} />
+        <RestaurantCard key={rest.restaurantId} restaurant={rest} />
       ))}
     </div>
   );

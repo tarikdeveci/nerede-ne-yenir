@@ -1,41 +1,48 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import SearchBar from '../components/searchbar';
 import CategoryFilter from '../components/categoryfilter';
 import RestaurantList from '../components/restaurantlist';
 
-const mockCategories = [
-  'Döner',
-  'Hamburger',
-  'Pizza',
-  'Tatlı',
-  'Ev Yemekleri',
-];
-
-// Örnek restoran verisi
-const mockRestaurants = [
-  { id: 1, name: 'Beşiktaş Dönercisi', rating: 4.5, priceRange: '₺₺', reviewsCount: 120, category: 'Döner' },
-  { id: 2, name: 'Burger House', rating: 4.2, priceRange: '₺₺₺', reviewsCount: 85, category: 'Hamburger' },
-  { id: 3, name: 'PizzaRoma', rating: 4.8, priceRange: '₺₺₺', reviewsCount: 200, category: 'Pizza' },
-  { id: 4, name: 'Tatlı Diyarı', rating: 4.3, priceRange: '₺', reviewsCount: 150, category: 'Tatlı' },
-  { id: 5, name: 'Ev Lezzetleri Lokantası', rating: 4.1, priceRange: '₺₺', reviewsCount: 60, category: 'Ev Yemekleri' },
-];
-
 export default function Home() {
   const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Sorgu ve kategoriye göre filtrelenmiş liste
+  // Veriyi API'den çek
+  useEffect(() => {
+    fetch('http://localhost:8080/api/restaurants')
+      .then((res) => res.json())
+      .then((data) => {
+        setRestaurants(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Restoran verisi alınamadı:', err);
+        setLoading(false);
+      });
+  }, []);
+
+  // Kategori listesini dinamik oluştur
+  const categories = useMemo(() => {
+    const all = restaurants.map((r) => r.categoryName);
+    return [...new Set(all)];
+  }, [restaurants]);
+
+  // Sorgu ve kategoriye göre filtreleme
   const filteredRestaurants = useMemo(() => {
-    return mockRestaurants.filter((r) => {
+    return restaurants.filter((r) => {
       const matchesQuery = query
-        ? r.name.toLowerCase().includes(query.toLowerCase())
+        ? r.restaurantName.toLowerCase().includes(query.toLowerCase())
         : true;
       const matchesCategory = selectedCategory
-        ? r.category === selectedCategory
+        ? r.categoryName === selectedCategory
         : true;
       return matchesQuery && matchesCategory;
     });
-  }, [query, selectedCategory]);
+  }, [query, selectedCategory, restaurants]);
+
+  if (loading) return <p className="p-6">Yükleniyor...</p>;
 
   return (
     <div>
@@ -44,7 +51,7 @@ export default function Home() {
 
       {/* Kategori Filtresi */}
       <CategoryFilter
-        categories={mockCategories}
+        categories={categories}
         selectedCategory={selectedCategory}
         onSelect={(cat) => setSelectedCategory(cat === selectedCategory ? '' : cat)}
       />

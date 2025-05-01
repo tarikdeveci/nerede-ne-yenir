@@ -18,8 +18,12 @@ public class ReviewMapper {
         dto.setReviewerLastName(review.getReviewerLastName());
         dto.setRating(review.getRating());
         dto.setComment(review.getComment());
-        dto.setRestaurantName(review.getRestaurant().getRestaurantName());
-        dto.setRestaurantId(review.getRestaurant().getRestaurantId()); // yeni satır
+    
+        if (review.getRestaurant() != null) {
+            dto.setRestaurantName(review.getRestaurant().getRestaurantName());
+            dto.setRestaurantId(review.getRestaurant().getRestaurantId());
+        }
+    
         return dto;
     }
 

@@ -37,7 +37,9 @@ export default function ReviewForm({ restaurantId, onSubmitSuccess }) {
           rating: 5,
           comment: '',
         });
-        if (onSubmitSuccess) onSubmitSuccess(); // Listeyi yenilemek için
+        if (onSubmitSuccess) onSubmitSuccess();
+        // Mesajı otomatik gizle
+        setTimeout(() => setSuccess(false), 3000);
       })
       .catch((err) => {
         console.error('Yorum gönderilemedi:', err);

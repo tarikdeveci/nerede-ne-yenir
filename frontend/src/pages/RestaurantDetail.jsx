@@ -4,9 +4,10 @@ import ReviewList from '../components/ReviewList';
 import ReviewForm from '../components/ReviewForm';
 
 export default function RestaurantDetail() {
-  const { id } = useParams(); // URL'den restoran ID'sini al
+  const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0); // 🆕 yorum listesini tetiklemek için
 
   useEffect(() => {
     fetch('http://localhost:8080/api/restaurants')
@@ -34,7 +35,6 @@ export default function RestaurantDetail() {
         Puan: ⭐ {restaurant.averageRating} ({restaurant.reviewCount} yorum)
       </p>
 
-      {/* Görsel varsa göster */}
       {restaurant.imageUrl && (
         <img
           src={restaurant.imageUrl}
@@ -45,17 +45,15 @@ export default function RestaurantDetail() {
 
       <hr className="my-6" />
 
-      {/* Yorumlar Bölümü */}
       <h2 className="text-2xl font-semibold mb-4 mt-6">Yorumlar</h2>
-      <ReviewList restaurantId={restaurant.restaurantId} />
+      <ReviewList restaurantId={restaurant.restaurantId} refreshKey={refreshKey} /> {/* 🆕 */}
 
       <hr className="my-6" />
 
-      {/* Yorum Ekleme Formu */}
       <h2 className="text-xl font-semibold mb-4 mt-6">Yorum Bırak</h2>
       <ReviewForm
         restaurantId={restaurant.restaurantId}
-        onSubmitSuccess={() => window.location.reload()} // refresh ile yorum güncelleme
+        onSubmitSuccess={() => setRefreshKey((prev) => prev + 1)} // 🆕 reload yerine tetikleme
       />
     </div>
   );

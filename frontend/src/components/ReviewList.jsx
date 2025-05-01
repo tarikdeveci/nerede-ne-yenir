@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-export default function ReviewList({ restaurantId }) {
+export default function ReviewList({ restaurantId, refreshKey }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!restaurantId) return;
 
+    setLoading(true); // 🆕 refresh'te de loading görünsün
     fetch(`http://localhost:8080/api/reviews/restaurant/${restaurantId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -17,7 +18,7 @@ export default function ReviewList({ restaurantId }) {
         console.error('Yorumlar alınamadı:', err);
         setLoading(false);
       });
-  }, [restaurantId]);
+  }, [restaurantId, refreshKey]); // 🆕 refreshKey değişince tekrar çalışır
 
   if (loading) return <p className="text-gray-600">Yorumlar yükleniyor...</p>;
 

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 export default function RestaurantCard({ restaurant }) {
   const {
-    id,
-    name,
-    rating,
+    restaurantId: id,
+    restaurantName: name,
+    averageRating: rating,
     priceRange,
-    reviewsCount,
-    category,
-    imageUrl // ileride backend'den gelir ya da static atanır
+    reviewCount: reviewsCount,
+    categoryName: category,
+    imageUrl
   } = restaurant;
 
   return (

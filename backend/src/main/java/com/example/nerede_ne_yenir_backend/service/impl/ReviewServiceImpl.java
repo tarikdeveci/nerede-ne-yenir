@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.nerede_ne_yenir_backend.dto.ReviewDTO;
 import com.example.nerede_ne_yenir_backend.mapper.ReviewMapper;
@@ -21,7 +22,7 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private RestaurantRepository restaurantRepository; // yeni eklendi
+    private RestaurantRepository restaurantRepository;
 
     @Override
     public List<ReviewDTO> getReviewsByRestaurant(Long restaurantId) {
@@ -32,23 +33,34 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    @Transactional
     public ReviewDTO addReview(ReviewDTO dto) {
         System.out.println(">>> addReview başladı");
         System.out.println(">>> DTO: " + dto);
         System.out.println(">>> restaurantId: " + dto.getRestaurantId());
-    
+
+        // 1. Restoranı bul
         Restaurant restaurant = restaurantRepository.findById(dto.getRestaurantId())
             .orElseThrow(() -> new RuntimeException("Restoran bulunamadı"));
-    
         System.out.println(">>> restoran bulundu: " + restaurant.getRestaurantName());
-    
+
+        // 2. Yeni yorumu kaydet
         Review review = ReviewMapper.toEntity(dto, restaurant);
         System.out.println(">>> review objesi oluşturuldu");
-    
         Review saved = reviewRepository.save(review);
-        System.out.println(">>> kayıt tamam");
-    
+        System.out.println(">>> yorum kaydedildi: ID=" + saved.getReviewId());
+
+        // 3. Ortalama puan ve yorum sayısını güncelle
+        int oldCount = restaurant.getReviewCount() != null ? restaurant.getReviewCount() : 0;
+        double oldAvg  = restaurant.getAverageRating() != null ? restaurant.getAverageRating() : 0.0;
+        int newCount   = oldCount + 1;
+        double newAvg  = (oldAvg * oldCount + dto.getRating()) / newCount;
+        restaurant.setReviewCount(newCount);
+        restaurant.setAverageRating(newAvg);
+        restaurantRepository.save(restaurant);
+        System.out.println(">>> restoran güncellendi: newCount=" + newCount + ", newAvg=" + newAvg);
+
+        // 4. Kaydedilen yorumu DTO olarak döndür
         return ReviewMapper.toDTO(saved);
     }
-    
 }

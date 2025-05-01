@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RatingStars from './RatingStars';
 
 export default function RestaurantCard({ restaurant }) {
   const {
@@ -15,7 +16,6 @@ export default function RestaurantCard({ restaurant }) {
   return (
     <Link to={`/restaurants/${id}`} className="block hover:shadow-lg transition duration-300 rounded-lg overflow-hidden bg-white">
       <div className="h-40 bg-gray-200 flex items-center justify-center">
-        {/* Görsel desteği gelince buraya yerleştirilecek */}
         {imageUrl ? (
           <img src={imageUrl} alt={name} className="object-cover w-full h-full" />
         ) : (
@@ -27,7 +27,10 @@ export default function RestaurantCard({ restaurant }) {
         <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
         <p className="text-sm text-gray-600">Kategori: {category}</p>
         <p className="text-sm text-gray-600">Fiyat Aralığı: {priceRange}</p>
-        <p className="text-sm text-gray-600">Puan: ⭐ {rating} ({reviewsCount} yorum)</p>
+        <div className="flex items-center gap-2">
+          <RatingStars rating={rating} />
+          <span className="text-sm text-gray-600">({reviewsCount} yorum)</span>
+        </div>
       </div>
     </Link>
   );

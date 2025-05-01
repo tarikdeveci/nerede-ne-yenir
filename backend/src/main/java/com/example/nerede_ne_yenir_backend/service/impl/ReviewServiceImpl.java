@@ -33,12 +33,22 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewDTO addReview(ReviewDTO dto) {
+        System.out.println(">>> addReview başladı");
+        System.out.println(">>> DTO: " + dto);
+        System.out.println(">>> restaurantId: " + dto.getRestaurantId());
+    
         Restaurant restaurant = restaurantRepository.findById(dto.getRestaurantId())
-                .orElseThrow(() -> new RuntimeException("Restoran bulunamadı"));
-
+            .orElseThrow(() -> new RuntimeException("Restoran bulunamadı"));
+    
+        System.out.println(">>> restoran bulundu: " + restaurant.getRestaurantName());
+    
         Review review = ReviewMapper.toEntity(dto, restaurant);
+        System.out.println(">>> review objesi oluşturuldu");
+    
         Review saved = reviewRepository.save(review);
-
+        System.out.println(">>> kayıt tamam");
+    
         return ReviewMapper.toDTO(saved);
     }
+    
 }

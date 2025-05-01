@@ -177,3 +177,6 @@ INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, 
 INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, comment, created_at, restaurant_id) VALUES (113, 'Pelin', 'Demir', 3, 'Temiz ve hijyenik.', CURRENT_TIMESTAMP, 25);
 INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, comment, created_at, restaurant_id) VALUES (114, 'Efe', 'Koç', 5, 'Tatlar dengeliydi.', CURRENT_TIMESTAMP, 25);
 INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, comment, created_at, restaurant_id) VALUES (115, 'Gözde', 'Aydın', 4, 'Uygun fiyatlı ve doyurucu.', CURRENT_TIMESTAMP, 25);
+
+
+ALTER TABLE review ALTER COLUMN review_id RESTART WITH 126;

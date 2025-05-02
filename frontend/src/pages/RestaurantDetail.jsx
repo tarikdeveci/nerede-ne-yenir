@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ReviewList from '../components/ReviewList';
 import ReviewForm from '../components/ReviewForm';
+import RatingStars from '../components/RatingStars'; // ⭐ Bileşeni dahil ettik
 
 export default function RestaurantDetail() {
   const { id } = useParams();
@@ -21,7 +22,7 @@ export default function RestaurantDetail() {
         console.error('Veri alınamadı:', err);
         setLoading(false);
       });
-  }, [id]);
+  }, [id, refreshKey]); // 🆕 refreshKey ekledik → yorum sonrası detay da güncellensin
 
   if (loading) return <p className="p-6">Yükleniyor...</p>;
   if (!restaurant) return <p className="p-6 text-red-600">Restoran bulunamadı.</p>;
@@ -31,9 +32,12 @@ export default function RestaurantDetail() {
       <h1 className="text-3xl font-bold mb-4">{restaurant.restaurantName}</h1>
       <p className="text-gray-700 mb-2">Kategori: {restaurant.categoryName}</p>
       <p className="text-gray-700 mb-2">Fiyat Aralığı: {restaurant.priceRange}</p>
-      <p className="text-gray-700 mb-4">
-        Puan: ⭐ {restaurant.averageRating} ({restaurant.reviewCount} yorum)
-      </p>
+
+      {/* ⭐ Güncellenmiş puan satırı */}
+      <div className="flex items-center gap-2 mb-4 text-gray-700">
+        <RatingStars rating={restaurant.averageRating} />
+        <span>{restaurant.averageRating.toFixed(2)} ({restaurant.reviewCount} yorum)</span>
+      </div>
 
       {restaurant.imageUrl && (
         <img
@@ -46,14 +50,14 @@ export default function RestaurantDetail() {
       <hr className="my-6" />
 
       <h2 className="text-2xl font-semibold mb-4 mt-6">Yorumlar</h2>
-      <ReviewList restaurantId={restaurant.restaurantId} refreshKey={refreshKey} /> {/* 🆕 */}
+      <ReviewList restaurantId={restaurant.restaurantId} refreshKey={refreshKey} />
 
       <hr className="my-6" />
 
       <h2 className="text-xl font-semibold mb-4 mt-6">Yorum Bırak</h2>
       <ReviewForm
         restaurantId={restaurant.restaurantId}
-        onSubmitSuccess={() => setRefreshKey((prev) => prev + 1)} // 🆕 reload yerine tetikleme
+        onSubmitSuccess={() => setRefreshKey((prev) => prev + 1)}
       />
     </div>
   );

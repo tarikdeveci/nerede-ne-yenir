@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import RatingStars from './RatingStars'; // ⭐ Bileşeni ekledik
 
 export default function ReviewList({ restaurantId, refreshKey }) {
   const [reviews, setReviews] = useState([]);
@@ -7,7 +8,7 @@ export default function ReviewList({ restaurantId, refreshKey }) {
   useEffect(() => {
     if (!restaurantId) return;
 
-    setLoading(true); // 🆕 refresh'te de loading görünsün
+    setLoading(true);
     fetch(`http://localhost:8080/api/reviews/restaurant/${restaurantId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -18,7 +19,7 @@ export default function ReviewList({ restaurantId, refreshKey }) {
         console.error('Yorumlar alınamadı:', err);
         setLoading(false);
       });
-  }, [restaurantId, refreshKey]); // 🆕 refreshKey değişince tekrar çalışır
+  }, [restaurantId, refreshKey]);
 
   if (loading) return <p className="text-gray-600">Yorumlar yükleniyor...</p>;
 
@@ -29,7 +30,10 @@ export default function ReviewList({ restaurantId, refreshKey }) {
       {reviews.map((review) => (
         <div key={review.reviewId} className="bg-gray-100 p-4 rounded shadow-sm">
           <p className="font-semibold">{review.reviewerFirstName} {review.reviewerLastName}</p>
-          <p className="text-sm text-gray-600">Puan: ⭐ {review.rating}</p>
+          <div className="flex items-center gap-2 text-sm text-yellow-600 mb-1">
+            <RatingStars rating={review.rating} />
+            <span className="text-gray-600">{review.rating.toFixed(1)}</span>
+          </div>
           <p className="mt-1">{review.comment}</p>
         </div>
       ))}

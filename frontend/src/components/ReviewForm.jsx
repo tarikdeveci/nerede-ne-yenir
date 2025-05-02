@@ -38,7 +38,6 @@ export default function ReviewForm({ restaurantId, onSubmitSuccess }) {
           comment: '',
         });
         if (onSubmitSuccess) onSubmitSuccess();
-        // Mesajı otomatik gizle
         setTimeout(() => setSuccess(false), 3000);
       })
       .catch((err) => {
@@ -70,6 +69,7 @@ export default function ReviewForm({ restaurantId, onSubmitSuccess }) {
           required
         />
       </div>
+
       <textarea
         name="comment"
         placeholder="Yorumunuz..."
@@ -79,6 +79,8 @@ export default function ReviewForm({ restaurantId, onSubmitSuccess }) {
         rows="4"
         required
       />
+
+      {/* ⭐ Puan seçimi (yıldız sayısıyla) */}
       <select
         name="rating"
         value={formData.rating}
@@ -87,10 +89,11 @@ export default function ReviewForm({ restaurantId, onSubmitSuccess }) {
       >
         {[5, 4, 3, 2, 1].map((val) => (
           <option key={val} value={val}>
-            {val} ⭐
+            {val} {'⭐'.repeat(val)}
           </option>
         ))}
       </select>
+
       <button
         type="submit"
         disabled={loading}

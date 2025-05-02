@@ -5,12 +5,10 @@ import com.example.nerede_ne_yenir_backend.model.Restaurant;
 
 public class RestaurantMapper {
 
-    // Kimsenin bu sınıftan nesne oluşturamaması için private constructor
     private RestaurantMapper() {
-        // static class
+        // static util class
     }
 
-    // Entity → DTO dönüşümü
     public static RestaurantDTO toDTO(Restaurant restaurant) {
         RestaurantDTO dto = new RestaurantDTO();
 
@@ -20,6 +18,7 @@ public class RestaurantMapper {
         dto.setAverageRating(restaurant.getAverageRating());
         dto.setReviewCount(restaurant.getReviewCount());
         dto.setCategoryName(restaurant.getCategory().getCategoryName());
+        dto.setImageUrl(restaurant.getImageUrl()); // 🆕 DTO'ya imageUrl aktar
 
         return dto;
     }

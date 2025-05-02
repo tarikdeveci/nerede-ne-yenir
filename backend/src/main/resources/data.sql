@@ -8,44 +8,50 @@ INSERT INTO food_category (category_id, category_name) VALUES (5, 'Ev Yemekleri'
 -- ========== RESTORANLAR ==========
 
 -- Döner
-INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id) VALUES
-(1, 'Ali Usta Döner', '₺', 4.5, 5, 1),
-(2, 'Dönerci Mehmet', '₺', 4.3, 5, 1),
-(3, 'Anadolu Döner', '₺₺', 4.6, 5, 1),
-(4, 'Kral Döner', '₺₺', 4.2, 5, 1),
-(5, 'Lezzet Durağı Döner', '₺', 4.4, 5, 1);
+INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
+(1, 'Kasap Döner Beşiktaş', '239-659', 4.5, 5, 1, 'https://i.imgur.com/DsLT5K7.jpg'),
+(2, 'Bayramoğlu Döner', '500-1100', 4.3, 5, 1, 'https://i.imgur.com/6sEft7b.jpg'),
+(3, 'Kardeşler Döner', '180-270', 4.6, 5, 1, 'https://i.imgur.com/7PjKf4q.jpg'),
+(4, 'Beşiktaş Dönercisi', '28-50', 4.2, 5, 1, 'https://i.imgur.com/bK0SCcW.jpg'),
+(5, 'Çıtır Usta Döner', '230-260', 4.4, 5, 1, 'https://i.imgur.com/CTOsLMe.jpg');
+
 
 -- Pizza
-INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id) VALUES
-(6, 'Pizza Street', '₺₺', 4.5, 5, 2),
-(7, 'Roma Pizza', '₺₺₺', 4.6, 5, 2),
-(8, 'Napoli Slice', '₺₺', 4.3, 5, 2),
-(9, 'Pizza Box', '₺', 4.1, 5, 2),
-(10, 'Mozzarella House', '₺₺', 4.7, 5, 2);
+INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
+(6, 'Pizzeria Pera', '380-650', 4.5, 5, 2, 'https://i.imgur.com/Example1.jpg'),
+(7, '400 Derece Pizza', '415-730', 4.6, 5, 2, 'https://i.imgur.com/Example2.jpg'),
+(8, 'Il Padrino Ristorante', '400-840', 4.3, 5, 2, 'https://i.imgur.com/Example3.jpg'),
+(9, 'Miss Pizza Beşiktaş', '450-950', 4.1, 5, 2, 'https://i.imgur.com/Example4.jpg'),
+(10, 'Pizza Locale', '435-760', 4.7, 5, 2, 'https://i.imgur.com/Example5.jpg');
+
 
 -- Tatlı
-INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id) VALUES
-(11, 'Tatlıcı Ali', '₺', 4.8, 5, 3),
-(12, 'Şekerpare Durağı', '₺', 4.5, 5, 3),
-(13, 'Künefe Evi', '₺₺', 4.6, 5, 3),
-(14, 'Baklavacı Şahin', '₺₺', 4.9, 5, 3),
-(15, 'Pasta & Tatlı', '₺₺', 4.4, 5, 3);
+INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
+(11, 'Viyana Kahvesi', '260-420', 4.8, 5, 3, 'https://i.imgur.com/1a2b3c4.jpg'),
+(12, 'Baklavacı Güllüoğlu', '850-2150', 4.5, 5, 3, 'https://i.imgur.com/5d6e7f8.jpg'),
+(13, 'Hafız Mustafa', '680-1120', 4.6, 5, 3, 'https://i.imgur.com/9g0h1i2.jpg'),
+(14, 'Mado Beşiktaş', '575-780', 4.9, 5, 3, 'https://i.imgur.com/3j4k5l6.jpg'),
+(15, 'Saray Muhallebicisi', '115-445', 4.4, 5, 3, 'https://i.imgur.com/7m8n9o0.jpg');
 
 -- Hamburger
-INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id) VALUES
-(16, 'Burger Stop', '₺₺', 4.3, 5, 4),
-(17, 'Texas Burger', '₺₺₺', 4.5, 5, 4),
-(18, 'Smash Bros', '₺₺', 4.7, 5, 4),
-(19, 'Cheesy Bites', '₺', 4.2, 5, 4),
-(20, 'Flame Grill', '₺₺', 4.6, 5, 4);
+INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
+(16, 'Akali', '180-250', 4.3, 5, 4, 'https://i.imgur.com/DsLT5K7.jpg'),
+(17, 'Zula Burger', '200-300', 4.5, 5, 4, 'https://i.imgur.com/6sEft7b.jpg'),
+(18, 'Baltazar Beşiktaş', '220-320', 4.7, 5, 4, 'https://i.imgur.com/7PjKf4q.jpg'),
+(19, 'Burger Break', '150-200', 4.2, 5, 4, 'https://i.imgur.com/bK0SCcW.jpg'),
+(20, 'Burger King Beşiktaş', '120-180', 4.6, 5, 4, 'https://i.imgur.com/CTOsLMe.jpg');
+
 
 -- Ev Yemekleri
-INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id) VALUES
-(21, 'Anne Eli Lokantası', '₺', 4.5, 5, 5),
-(22, 'Sulu Yemekçi', '₺', 4.3, 5, 5),
-(23, 'Ev Lezzeti', '₺₺', 4.6, 5, 5),
-(24, 'Tencere & Kaşık', '₺₺', 4.2, 5, 5),
-(25, 'Yöresel Sofra', '₺', 4.4, 5, 5);
+INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
+(21, 'Köşk Lokantası', '100-150', 4.5, 5, 5, 'https://i.imgur.com/abc123.jpg'),
+(22, 'Karadeniz Lokantası', '90-140', 4.3, 5, 5, 'https://i.imgur.com/def456.jpg'),
+(23, 'Sahan Beşiktaş', '150-200', 4.6, 5, 5, 'https://i.imgur.com/ghi789.jpg'),
+(24, 'Çakmak Lokantası', '110-160', 4.2, 5, 5, 'https://i.imgur.com/jkl012.jpg'),
+(25, 'Akasya Ev Yemekleri', '95-145', 4.4, 5, 5, 'https://i.imgur.com/mno345.jpg');
+
+
+
 
 -- ========== YORUMLAR ==========
 -- Her restorana 5 yorum (toplam 125)

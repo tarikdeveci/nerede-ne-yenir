@@ -9,12 +9,16 @@ export default function Home() {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Veriyi API'den çek
   useEffect(() => {
     fetch('http://localhost:8080/api/restaurants')
       .then((res) => res.json())
       .then((data) => {
-        setRestaurants(data);
+        // Her restoranda imageUrl varsa kalsın, yoksa null yap
+        const sanitizedData = data.map((r) => ({
+          ...r,
+          imageUrl: r.imageUrl || null
+        }));
+        setRestaurants(sanitizedData);
         setLoading(false);
       })
       .catch((err) => {
@@ -23,13 +27,11 @@ export default function Home() {
       });
   }, []);
 
-  // Kategori listesini dinamik oluştur
   const categories = useMemo(() => {
     const all = restaurants.map((r) => r.categoryName);
     return [...new Set(all)];
   }, [restaurants]);
 
-  // Sorgu ve kategoriye göre filtreleme
   const filteredRestaurants = useMemo(() => {
     return restaurants.filter((r) => {
       const matchesQuery = query
@@ -46,21 +48,14 @@ export default function Home() {
 
   return (
     <div>
-      {/* Arama Çubuğu */}
       <SearchBar onSearch={setQuery} />
-
-      {/* Kategori Filtresi */}
       <CategoryFilter
         categories={categories}
         selectedCategory={selectedCategory}
         onSelect={(cat) => setSelectedCategory(cat === selectedCategory ? '' : cat)}
       />
-
-      {/* Aranan ve seçili kategori */}
       {query && <p className="mb-2 text-gray-700">Aranan: "{query}"</p>}
       {selectedCategory && <p className="mb-4 text-gray-700">Kategori: {selectedCategory}</p>}
-
-      {/* Restoran Listesi */}
       <RestaurantList restaurants={filteredRestaurants} />
     </div>
   );

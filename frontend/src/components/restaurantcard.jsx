@@ -10,9 +10,8 @@ export default function RestaurantCard({ restaurant }) {
     priceRange,
     reviewCount: reviewsCount,
     categoryName: category,
-    imageUrl
+    imageUrl // ✅ Bunu düzelt
   } = restaurant;
-
   return (
     <Link to={`/restaurants/${id}`} className="block hover:shadow-lg transition duration-300 rounded-lg overflow-hidden bg-white">
       <div className="h-40 bg-gray-200 flex items-center justify-center">

@@ -41,11 +41,12 @@ export default function RestaurantDetail() {
 
       {restaurant.imageUrl && (
         <img
-          src={restaurant.imageUrl}
+          src={`/assets/restaurants/${restaurant.imageUrl}`}
           alt={restaurant.restaurantName}
           className="w-full h-64 object-cover rounded mb-4"
-        />
-      )}
+          />
+        )}
+
 
       <hr className="my-6" />
 

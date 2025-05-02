@@ -16,7 +16,8 @@ export default function RestaurantCard({ restaurant }) {
     <Link to={`/restaurants/${id}`} className="block hover:shadow-lg transition duration-300 rounded-lg overflow-hidden bg-white">
       <div className="h-40 bg-gray-200 flex items-center justify-center">
         {imageUrl ? (
-          <img src={imageUrl} alt={name} className="object-cover w-full h-full" />
+         <img src={`/assets/restaurants/${imageUrl}`} alt={name} className="object-cover w-full h-full" />
+
         ) : (
           <span className="text-gray-400 text-sm">[ Görsel yok ]</span>
         )}

@@ -9,46 +9,44 @@ INSERT INTO food_category (category_id, category_name) VALUES (5, 'Ev Yemekleri'
 
 -- Döner
 INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
-(1, 'Kasap Döner Beşiktaş', '239-659', 4.5, 5, 1, 'https://i.imgur.com/DsLT5K7.jpg'),
-(2, 'Bayramoğlu Döner', '500-1100', 4.3, 5, 1, 'https://i.imgur.com/6sEft7b.jpg'),
-(3, 'Kardeşler Döner', '180-270', 4.6, 5, 1, 'https://i.imgur.com/7PjKf4q.jpg'),
-(4, 'Beşiktaş Dönercisi', '28-50', 4.2, 5, 1, 'https://i.imgur.com/bK0SCcW.jpg'),
-(5, 'Çıtır Usta Döner', '230-260', 4.4, 5, 1, 'https://i.imgur.com/CTOsLMe.jpg');
-
+(1, 'Kasap Döner Beşiktaş', '239-659', 4.5, 5, 1, 'kasap-doner.jpg'),
+(2, 'Bayramoğlu Döner', '500-1100', 4.3, 5, 1, 'bayramoglu-doner.jpg'),
+(3, 'Kardeşler Döner', '180-270', 4.6, 5, 1, 'kardesler-doner.jpg'),
+(4, 'Beşiktaş Dönercisi', '28-50', 4.2, 5, 1, 'besiktas-doner.jpg'),
+(5, 'Karadeniz Döner', '230-260', 4.4, 5, 1, 'karadeniz-doner.jpg');
 
 -- Pizza
 INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
-(6, 'Pizzeria Pera', '380-650', 4.5, 5, 2, 'https://i.imgur.com/Example1.jpg'),
-(7, '400 Derece Pizza', '415-730', 4.6, 5, 2, 'https://i.imgur.com/Example2.jpg'),
-(8, 'Il Padrino Ristorante', '400-840', 4.3, 5, 2, 'https://i.imgur.com/Example3.jpg'),
-(9, 'Miss Pizza Beşiktaş', '450-950', 4.1, 5, 2, 'https://i.imgur.com/Example4.jpg'),
-(10, 'Pizza Locale', '435-760', 4.7, 5, 2, 'https://i.imgur.com/Example5.jpg');
-
+(6, 'Pizzeria Pera', '380-650', 4.5, 5, 2, 'pera-pizza.jpg'),
+(7, '400 Derece Pizza', '415-730', 4.6, 5, 2, '400derece-pizza.jpg'),
+(8, 'Il Padrino Ristorante', '400-840', 4.3, 5, 2, 'padrino-pizza.jpg'),
+(9, 'Miss Pizza Beşiktaş', '450-950', 4.1, 5, 2, 'miss-pizza.jpg'),
+(10, 'Pizza Locale', '435-760', 4.7, 5, 2, 'locale-pizza.jpg');
 
 -- Tatlı
 INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
-(11, 'Viyana Kahvesi', '260-420', 4.8, 5, 3, 'https://i.imgur.com/1a2b3c4.jpg'),
-(12, 'Baklavacı Güllüoğlu', '850-2150', 4.5, 5, 3, 'https://i.imgur.com/5d6e7f8.jpg'),
-(13, 'Hafız Mustafa', '680-1120', 4.6, 5, 3, 'https://i.imgur.com/9g0h1i2.jpg'),
-(14, 'Mado Beşiktaş', '575-780', 4.9, 5, 3, 'https://i.imgur.com/3j4k5l6.jpg'),
-(15, 'Saray Muhallebicisi', '115-445', 4.4, 5, 3, 'https://i.imgur.com/7m8n9o0.jpg');
+(11, 'Viyana Kahvesi', '260-420', 4.8, 5, 3, 'viyana-tatli.jpg'),
+(12, 'Baklavacı Güllüoğlu', '850-2150', 4.5, 5, 3, 'gulluoglu-tatli.jpg'),
+(13, 'Hafız Mustafa', '680-1120', 4.6, 5, 3, 'hafizmustafa-tatli.jpg'),
+(14, 'Mado Beşiktaş', '575-780', 4.9, 5, 3, 'mado-tatli.jpg'),
+(15, 'Saray Muhallebicisi', '115-445', 4.4, 5, 3, 'saray-tatli.jpg');
 
 -- Hamburger
 INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
-(16, 'Akali', '180-250', 4.3, 5, 4, 'https://i.imgur.com/DsLT5K7.jpg'),
-(17, 'Zula Burger', '200-300', 4.5, 5, 4, 'https://i.imgur.com/6sEft7b.jpg'),
-(18, 'Baltazar Beşiktaş', '220-320', 4.7, 5, 4, 'https://i.imgur.com/7PjKf4q.jpg'),
-(19, 'Burger Break', '150-200', 4.2, 5, 4, 'https://i.imgur.com/bK0SCcW.jpg'),
-(20, 'Burger King Beşiktaş', '120-180', 4.6, 5, 4, 'https://i.imgur.com/CTOsLMe.jpg');
-
+(16, 'Akali', '180-250', 4.3, 5, 4, 'akali-burger.jpg'),
+(17, 'Zula Burger', '200-300', 4.5, 5, 4, 'zula-burger.jpg'),
+(18, 'Baltazar Beşiktaş', '220-320', 4.7, 5, 4, 'baltazar-burger.jpg'),
+(19, 'Arca Burger', '150-200', 4.2, 5, 4, 'arca-burger.jpg'),
+(20, 'The Smashy', '120-180', 4.6, 5, 4, 'smashy-burger.jpg');
 
 -- Ev Yemekleri
 INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rating, review_count, category_id, image_url) VALUES
-(21, 'Köşk Lokantası', '100-150', 4.5, 5, 5, 'https://i.imgur.com/abc123.jpg'),
-(22, 'Karadeniz Lokantası', '90-140', 4.3, 5, 5, 'https://i.imgur.com/def456.jpg'),
-(23, 'Sahan Beşiktaş', '150-200', 4.6, 5, 5, 'https://i.imgur.com/ghi789.jpg'),
-(24, 'Çakmak Lokantası', '110-160', 4.2, 5, 5, 'https://i.imgur.com/jkl012.jpg'),
-(25, 'Akasya Ev Yemekleri', '95-145', 4.4, 5, 5, 'https://i.imgur.com/mno345.jpg');
+(21, 'TahtaKaşık Ev Yemekleri', '100-150', 4.5, 5, 5, 'tahtakasik-ev.jpg'),
+(22, 'Hayri Usta Lokantası', '90-140', 4.3, 5, 5, 'hayriusta-ev.jpg'),
+(23, 'Kazım Usta Ev Yemekleri', '150-200', 4.6, 5, 5, 'kazimusta-ev.jpg'),
+(24, 'Balkan Halk Lokantası', '110-160', 4.2, 5, 5, 'balkan-ev.jpg'),
+(25, 'Kısmet Lokantası', '95-145', 4.4, 5, 5, 'kismet-ev.jpeg');
+
 
 
 

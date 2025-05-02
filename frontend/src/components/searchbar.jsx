@@ -9,7 +9,7 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center mb-6">
+    <form onSubmit={handleSubmit} className="flex">
       <input
         type="text"
         value={query}

@@ -33,33 +33,47 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .collect(Collectors.toList());
     }
 
-    // 🔍 Filtreli restoranları getir (priceRange dahil)
     @Override
-    public List<RestaurantDTO> filterRestaurants(String category, Double minRating, Integer minReviews, Integer minPrice, Integer maxPrice) {
-        // İlk olarak DB'den rating, review, category filtreli veri çekiyoruz
-        List<Restaurant> preFiltered = restaurantRepository.filterRestaurants(category, minRating, minReviews, null, null);
+    public List<RestaurantDTO> filterRestaurants(
+            String category,
+            Double minRating,
+            Integer minReviews,
+            Integer minPrice,
+            Integer maxPrice
+    ) {
+        // 1) DB’den kategori, puan ve yorum filtresiyle çek
+        List<Restaurant> preFiltered = restaurantRepository.filterRestaurants(category, minRating, minReviews);
 
-        // Ardından Java tarafında priceRange string’ini parçalayarak filtre uyguluyoruz
+        // 2) Java tarafında priceRange string’ini parse edip fiyat filtresi uygula
         List<Restaurant> priceFiltered = preFiltered.stream()
-                .filter(restaurant -> {
+                .filter(r -> {
                     try {
-                        String[] prices = restaurant.getPriceRange().split("-");
-                        int lower = Integer.parseInt(prices[0].trim());
-                        int upper = Integer.parseInt(prices[1].trim());
+                        String pr = r.getPriceRange();
+                        if (pr == null || !pr.contains("-")) return false;
 
-                        if (minPrice != null && upper < minPrice) return false;
-                        if (maxPrice != null && lower > maxPrice) return false;
+                        String[] parts = pr.split("-");
+                        if (parts.length != 2) return false;
+
+                        int lower = Integer.parseInt(parts[0].trim());
+                        int upper = Integer.parseInt(parts[1].trim());
+
+                        // Alt sınır filtresi (minPrice)
+                        if (minPrice != null && lower < minPrice) return false;
+                        // Üst sınır filtresi (maxPrice)
+                        if (maxPrice != null && upper > maxPrice) return false;
 
                         return true;
                     } catch (Exception e) {
-                        // priceRange geçersizse filtre dışı bırak
+                        // Hatalı priceRange verisi varsa filtre dışı bırak
                         return false;
                     }
                 })
                 .collect(Collectors.toList());
 
+        // 3) DTO’ya çevir ve döndür
         return priceFiltered.stream()
                 .map(RestaurantMapper::toDTO)
                 .collect(Collectors.toList());
     }
-}
+
+} // class RestaurantServiceImpl

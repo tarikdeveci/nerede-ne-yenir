@@ -4,6 +4,7 @@ import com.example.nerede_ne_yenir_backend.dto.RestaurantDTO;
 import com.example.nerede_ne_yenir_backend.mapper.RestaurantMapper;
 import com.example.nerede_ne_yenir_backend.model.Restaurant;
 import com.example.nerede_ne_yenir_backend.repository.RestaurantRepository;
+import com.example.nerede_ne_yenir_backend.repository.ReviewRepository;
 import com.example.nerede_ne_yenir_backend.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,19 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
+    @Autowired
+    private ReviewRepository reviewRepository;  // 🆕
+
     @Override
     public List<RestaurantDTO> getAllRestaurants() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
         return restaurants.stream()
-                .map(RestaurantMapper::toDTO)
+                .map(r -> {
+                    RestaurantDTO dto = RestaurantMapper.toDTO(r);
+                    // gerçek yorum sayısını alıp DTO'ya set et
+                    dto.setReviewCount((int) reviewRepository.countByRestaurant_RestaurantId(r.getRestaurantId()));
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -29,7 +38,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<RestaurantDTO> getRestaurantsByCategory(Long categoryId) {
         List<Restaurant> restaurants = restaurantRepository.findByCategory_CategoryId(categoryId);
         return restaurants.stream()
-                .map(RestaurantMapper::toDTO)
+                .map(r -> {
+                    RestaurantDTO dto = RestaurantMapper.toDTO(r);
+                    dto.setReviewCount((int) reviewRepository.countByRestaurant_RestaurantId(r.getRestaurantId()));
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -57,23 +70,24 @@ public class RestaurantServiceImpl implements RestaurantService {
                         int lower = Integer.parseInt(parts[0].trim());
                         int upper = Integer.parseInt(parts[1].trim());
 
-                        // Alt sınır filtresi (minPrice)
                         if (minPrice != null && lower < minPrice) return false;
-                        // Üst sınır filtresi (maxPrice)
                         if (maxPrice != null && upper > maxPrice) return false;
 
                         return true;
                     } catch (Exception e) {
-                        // Hatalı priceRange verisi varsa filtre dışı bırak
                         return false;
                     }
                 })
                 .collect(Collectors.toList());
 
-        // 3) DTO’ya çevir ve döndür
+        // 3) DTO’ya çevir, dinamik yorum sayısını da set et ve döndür
         return priceFiltered.stream()
-                .map(RestaurantMapper::toDTO)
+                .map(r -> {
+                    RestaurantDTO dto = RestaurantMapper.toDTO(r);
+                    dto.setReviewCount((int) reviewRepository.countByRestaurant_RestaurantId(r.getRestaurantId()));
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
-} // class RestaurantServiceImpl
+}

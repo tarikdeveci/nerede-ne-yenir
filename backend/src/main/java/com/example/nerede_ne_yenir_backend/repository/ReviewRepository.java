@@ -16,4 +16,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
      * Belirli bir restorana ait tüm yorumları getir
      */
     List<Review> findByRestaurant_RestaurantId(Long restaurantId);
+
+    /**
+     * Belirli bir restorana ait yorum sayısını döner
+     */
+    long countByRestaurant_RestaurantId(Long restaurantId);
 }

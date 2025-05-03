@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ReviewList from '../components/ReviewList';
 import ReviewForm from '../components/ReviewForm';
@@ -6,6 +6,7 @@ import RatingStars from '../components/RatingStars'; // ⭐ Bileşeni dahil etti
 
 export default function RestaurantDetail() {
   const { id } = useParams();
+  const navigate = useNavigate(); // 🔙 Geri navigasyon
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0); // 🆕 yorum listesini tetiklemek için
@@ -22,13 +23,21 @@ export default function RestaurantDetail() {
         console.error('Veri alınamadı:', err);
         setLoading(false);
       });
-  }, [id, refreshKey]); // 🆕 refreshKey ekledik → yorum sonrası detay da güncellensin
+  }, [id, refreshKey]);
 
   if (loading) return <p className="p-6">Yükleniyor...</p>;
   if (!restaurant) return <p className="p-6 text-red-600">Restoran bulunamadı.</p>;
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+      {/* 🔙 Geri butonu */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 text-orange-600 hover:underline focus:outline-none"
+      >
+        ← Geri
+      </button>
+
       <h1 className="text-3xl font-bold mb-4">{restaurant.restaurantName}</h1>
       <p className="text-gray-700 mb-2">Kategori: {restaurant.categoryName}</p>
       <p className="text-gray-700 mb-2">Fiyat Aralığı: {restaurant.priceRange}</p>
@@ -36,7 +45,9 @@ export default function RestaurantDetail() {
       {/* ⭐ Güncellenmiş puan satırı */}
       <div className="flex items-center gap-2 mb-4 text-gray-700">
         <RatingStars rating={restaurant.averageRating} />
-        <span>{restaurant.averageRating.toFixed(2)} ({restaurant.reviewCount} yorum)</span>
+        <span>
+          {restaurant.averageRating.toFixed(2)} ({restaurant.reviewCount} yorum)
+        </span>
       </div>
 
       {restaurant.imageUrl && (
@@ -44,9 +55,8 @@ export default function RestaurantDetail() {
           src={`/assets/restaurants/${restaurant.imageUrl}`}
           alt={restaurant.restaurantName}
           className="w-full h-64 object-cover rounded mb-4"
-          />
-        )}
-
+        />
+      )}
 
       <hr className="my-6" />
 

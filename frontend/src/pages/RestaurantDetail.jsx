@@ -1,15 +1,15 @@
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import RatingStars from '../components/RatingStars';
 import ReviewList from '../components/ReviewList';
 import ReviewForm from '../components/ReviewForm';
-import RatingStars from '../components/RatingStars'; // ⭐ Bileşeni dahil ettik
 
 export default function RestaurantDetail() {
   const { id } = useParams();
-  const navigate = useNavigate(); // 🔙 Geri navigasyon
+  const navigate = useNavigate();
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [refreshKey, setRefreshKey] = useState(0); // 🆕 yorum listesini tetiklemek için
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     fetch('http://localhost:8080/api/restaurants')
@@ -28,9 +28,16 @@ export default function RestaurantDetail() {
   if (loading) return <p className="p-6">Yükleniyor...</p>;
   if (!restaurant) return <p className="p-6 text-red-600">Restoran bulunamadı.</p>;
 
+  // Aynı mantıkla burada da
+  const { imageUrl } = restaurant;
+  const imgSrc = imageUrl
+    ? imageUrl.startsWith('http')
+      ? imageUrl
+      : `/assets/restaurants/${imageUrl}`
+    : null;
+
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow">
-      {/* 🔙 Geri butonu */}
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-orange-600 hover:underline focus:outline-none"
@@ -42,7 +49,6 @@ export default function RestaurantDetail() {
       <p className="text-gray-700 mb-2">Kategori: {restaurant.categoryName}</p>
       <p className="text-gray-700 mb-2">Fiyat Aralığı: {restaurant.priceRange}</p>
 
-      {/* ⭐ Güncellenmiş puan satırı */}
       <div className="flex items-center gap-2 mb-4 text-gray-700">
         <RatingStars rating={restaurant.averageRating} />
         <span>
@@ -50,9 +56,9 @@ export default function RestaurantDetail() {
         </span>
       </div>
 
-      {restaurant.imageUrl && (
+      {imgSrc && (
         <img
-          src={`/assets/restaurants/${restaurant.imageUrl}`}
+          src={imgSrc}
           alt={restaurant.restaurantName}
           className="w-full h-64 object-cover rounded mb-4"
         />

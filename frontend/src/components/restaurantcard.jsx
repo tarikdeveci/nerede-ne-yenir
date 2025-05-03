@@ -10,14 +10,24 @@ export default function RestaurantCard({ restaurant }) {
     priceRange,
     reviewCount: reviewsCount,
     categoryName: category,
-    imageUrl // ✅ Bunu düzelt
+    imageUrl, // API'dan gelen imageUrl
   } = restaurant;
-  return (
-    <Link to={`/restaurants/${id}`} className="block hover:shadow-lg transition duration-300 rounded-lg overflow-hidden bg-white">
-      <div className="h-40 bg-gray-200 flex items-center justify-center">
-        {imageUrl ? (
-         <img src={`/assets/restaurants/${imageUrl}`} alt={name} className="object-cover w-full h-full" />
 
+  // Eğer imageUrl bir HTTP URL’i değilse, statik klasör yolunu öne ekle
+  const imgSrc = imageUrl
+    ? imageUrl.startsWith('http')
+      ? imageUrl
+      : `/assets/restaurants/${imageUrl}`
+    : null;
+
+  return (
+    <Link
+      to={`/restaurants/${id}`}
+      className="block hover:shadow-lg transition duration-300 rounded-lg overflow-hidden bg-white"
+    >
+      <div className="h-40 bg-gray-200 flex items-center justify-center">
+        {imgSrc ? (
+          <img src={imgSrc} alt={name} className="object-cover w-full h-full" />
         ) : (
           <span className="text-gray-400 text-sm">[ Görsel yok ]</span>
         )}

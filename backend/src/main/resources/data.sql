@@ -511,4 +511,4 @@ INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, 
 INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, comment, created_at, restaurant_id) VALUES (443, 'Selin', 'Kaya', 4, 'Tadı harikaydı, tekrar geleceğim.', CURRENT_TIMESTAMP, 25);
 
 
-ALTER TABLE review ALTER COLUMN review_id RESTART WITH 126;
+ALTER TABLE review ALTER COLUMN review_id RESTART WITH 444;

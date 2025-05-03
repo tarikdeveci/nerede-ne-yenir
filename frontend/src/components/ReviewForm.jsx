@@ -13,17 +13,27 @@ export default function ReviewForm({ restaurantId, onSubmitSuccess }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
+    // rating ve restaurantId'yi Number tipine çevirip payload oluştur
+    const payload = {
+      ...formData,
+      rating: Number(formData.rating),
+      restaurantId: Number(restaurantId),
+    };
+
     fetch('http://localhost:8080/api/reviews', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...formData, restaurantId: Number(restaurantId) }),
+      body: JSON.stringify(payload),
     })
       .then(res => {
         if (!res.ok) throw new Error('Sunucu hatası');

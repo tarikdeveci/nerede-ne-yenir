@@ -19,7 +19,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     private RestaurantRepository restaurantRepository;
 
     @Autowired
-    private ReviewRepository reviewRepository;  // 🆕
+    private ReviewRepository reviewRepository;
 
     @Override
     public List<RestaurantDTO> getAllRestaurants() {
@@ -27,7 +27,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurants.stream()
                 .map(r -> {
                     RestaurantDTO dto = RestaurantMapper.toDTO(r);
-                    // gerçek yorum sayısını alıp DTO'ya set et
                     dto.setReviewCount((int) reviewRepository.countByRestaurant_RestaurantId(r.getRestaurantId()));
                     return dto;
                 })
@@ -47,32 +46,18 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<RestaurantDTO> filterRestaurants(
-            String category,
-            Double minRating,
-            Integer minReviews,
-            Integer minPrice,
-            Integer maxPrice
-    ) {
-        // 1) DB’den kategori, puan ve yorum filtresiyle çek
+    public List<RestaurantDTO> filterRestaurants(String category, Double minRating, Integer minReviews, Integer minPrice, Integer maxPrice) {
         List<Restaurant> preFiltered = restaurantRepository.filterRestaurants(category, minRating, minReviews);
-
-        // 2) Java tarafında priceRange string’ini parse edip fiyat filtresi uygula
         List<Restaurant> priceFiltered = preFiltered.stream()
                 .filter(r -> {
                     try {
                         String pr = r.getPriceRange();
                         if (pr == null || !pr.contains("-")) return false;
-
                         String[] parts = pr.split("-");
-                        if (parts.length != 2) return false;
-
                         int lower = Integer.parseInt(parts[0].trim());
                         int upper = Integer.parseInt(parts[1].trim());
-
                         if (minPrice != null && lower < minPrice) return false;
                         if (maxPrice != null && upper > maxPrice) return false;
-
                         return true;
                     } catch (Exception e) {
                         return false;
@@ -80,7 +65,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 })
                 .collect(Collectors.toList());
 
-        // 3) DTO’ya çevir, dinamik yorum sayısını da set et ve döndür
         return priceFiltered.stream()
                 .map(r -> {
                     RestaurantDTO dto = RestaurantMapper.toDTO(r);
@@ -90,4 +74,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .collect(Collectors.toList());
     }
 
+    // 🔥 Yeni: ID ile restoran getirme
+    @Override
+    public RestaurantDTO getRestaurantById(Long id) {
+        Restaurant r = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restoran bulunamadı"));
+        RestaurantDTO dto = RestaurantMapper.toDTO(r);
+        dto.setReviewCount((int) reviewRepository.countByRestaurant_RestaurantId(r.getRestaurantId()));
+        return dto;
+    }
 }

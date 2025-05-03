@@ -14,19 +14,17 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
-    // Tüm restoranları getir
     @GetMapping
     public List<RestaurantDTO> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
 
-    // Belirli bir kategoriye ait restoranları getir
     @GetMapping("/category/{categoryId}")
     public List<RestaurantDTO> getRestaurantsByCategory(@PathVariable Long categoryId) {
         return restaurantService.getRestaurantsByCategory(categoryId);
     }
 
-    // 🔍 Filtreleme endpoint'i
+    // 🔍 Filtreleme
     @GetMapping("/filter")
     public List<RestaurantDTO> filterRestaurants(
             @RequestParam(required = false) String category,
@@ -36,5 +34,11 @@ public class RestaurantController {
             @RequestParam(required = false) Integer maxPrice
     ) {
         return restaurantService.filterRestaurants(category, minRating, minReviews, minPrice, maxPrice);
+    }
+
+    // 🔥 Yeni: ID ile restoran getirme
+    @GetMapping("/{id}")
+    public RestaurantDTO getRestaurantById(@PathVariable Long id) {
+        return restaurantService.getRestaurantById(id);
     }
 }

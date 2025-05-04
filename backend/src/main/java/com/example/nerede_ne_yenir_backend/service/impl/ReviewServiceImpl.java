@@ -11,6 +11,9 @@ import com.example.nerede_ne_yenir_backend.dto.ReviewDTO;
 import com.example.nerede_ne_yenir_backend.mapper.ReviewMapper;
 import com.example.nerede_ne_yenir_backend.model.Restaurant;
 import com.example.nerede_ne_yenir_backend.model.Review;
+import com.example.nerede_ne_yenir_backend.observer.LoggerObserver;
+import com.example.nerede_ne_yenir_backend.observer.RatingUpdater;
+import com.example.nerede_ne_yenir_backend.observer.ReviewEventManager;
 import com.example.nerede_ne_yenir_backend.repository.RestaurantRepository;
 import com.example.nerede_ne_yenir_backend.repository.ReviewRepository;
 import com.example.nerede_ne_yenir_backend.service.ReviewService;
@@ -51,8 +54,10 @@ public class ReviewServiceImpl implements ReviewService {
         System.out.println(">>> yorum kaydedildi: ID=" + saved.getReviewId());
 
         // 3. Ortalama puan ve yorum sayısını güncelle
-        int oldCount = restaurant.getReviewCount() != null ? restaurant.getReviewCount() : 0;
-        double oldAvg  = restaurant.getAverageRating() != null ? restaurant.getAverageRating() : 0.0;
+        Integer reviewCount = restaurant.getReviewCount();
+        int oldCount = reviewCount != null ? reviewCount : 0;
+        Double averageRating = restaurant.getAverageRating();
+        double oldAvg = averageRating != null ? averageRating : 0.0;
         int newCount   = oldCount + 1;
         double newAvg  = (oldAvg * oldCount + dto.getRating()) / newCount;
         restaurant.setReviewCount(newCount);
@@ -60,7 +65,13 @@ public class ReviewServiceImpl implements ReviewService {
         restaurantRepository.save(restaurant);
         System.out.println(">>> restoran güncellendi: newCount=" + newCount + ", newAvg=" + newAvg);
 
-        // 4. Kaydedilen yorumu DTO olarak döndür
+        // 4. Gözlemcileri tetikle (Observer Pattern)
+        ReviewEventManager eventManager = new ReviewEventManager();
+        eventManager.subscribe(new LoggerObserver());
+        eventManager.subscribe(new RatingUpdater());
+        eventManager.notifyAll(saved); // saved Review nesnesi gönderildi
+
+        // 5. Kaydedilen yorumu DTO olarak döndür
         return ReviewMapper.toDTO(saved);
     }
 }

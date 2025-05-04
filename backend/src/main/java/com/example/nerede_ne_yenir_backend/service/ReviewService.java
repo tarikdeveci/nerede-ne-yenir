@@ -7,5 +7,5 @@ import com.example.nerede_ne_yenir_backend.dto.ReviewDTO;
 public interface ReviewService {
     List<ReviewDTO> getReviewsByRestaurant(Long restaurantId);
 
-    ReviewDTO addReview(ReviewDTO dto); // yeni metod
+    ReviewDTO addReview(ReviewDTO dto); 
 }

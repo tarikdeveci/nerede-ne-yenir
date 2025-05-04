@@ -13,7 +13,7 @@ export default function RestaurantCard({ restaurant }) {
     imageUrl, // API'dan gelen imageUrl
   } = restaurant;
 
-  // Eğer imageUrl bir HTTP URL’i değilse, statik klasör yolunu öne ekle
+ 
   const imgSrc = imageUrl
     ? imageUrl.startsWith('http')
       ? imageUrl

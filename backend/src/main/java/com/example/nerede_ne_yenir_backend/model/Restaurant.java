@@ -27,5 +27,5 @@ public class Restaurant {
 
     private Integer reviewCount;
 
-    private String imageUrl; // 🆕 Restoran görseli (örnek: https://picsum.photos/400/300)
+    private String imageUrl; 
 }

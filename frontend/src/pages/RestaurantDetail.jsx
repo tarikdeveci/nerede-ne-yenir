@@ -28,7 +28,7 @@ export default function RestaurantDetail() {
   if (loading) return <p className="p-6">Yükleniyor...</p>;
   if (!restaurant) return <p className="p-6 text-red-600">Restoran bulunamadı.</p>;
 
-  // Aynı mantıkla burada da
+  
   const { imageUrl } = restaurant;
   const imgSrc = imageUrl
     ? imageUrl.startsWith('http')

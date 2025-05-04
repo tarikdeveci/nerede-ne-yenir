@@ -52,10 +52,10 @@ INSERT INTO restaurant (restaurant_id, restaurant_name, price_range, average_rat
 
 
 -- ========== YORUMLAR ==========
--- Her restorana 5 yorum (toplam 125)
 
--- Basit for döngüsü olmadığından örnekliyorum:
--- Dönerci Ali Usta (ID = 1)
+
+
+
 INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, comment, created_at, restaurant_id) VALUES
 (1, 'Ahmet', 'Yılmaz', 5, 'Döner efsaneydi!', CURRENT_TIMESTAMP, 1),
 (2, 'Zeynep', 'Koç', 4, 'Biraz yağlıydı ama lezzetli.', CURRENT_TIMESTAMP, 1),
@@ -63,7 +63,7 @@ INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, 
 (4, 'Ayşe', 'Öztürk', 4, 'Porsiyon büyüktü.', CURRENT_TIMESTAMP, 1),
 (5, 'Emre', 'Kaya', 5, 'Uygun fiyat, harika tat.', CURRENT_TIMESTAMP, 1);
 
--- Pizza Street (ID = 6)
+
 INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, comment, created_at, restaurant_id) VALUES
 (6, 'Elif', 'Aydın', 5, 'Pizzanın hamuru mükemmeldi.', CURRENT_TIMESTAMP, 6),
 (7, 'Kerem', 'Çelik', 4, 'Peyniri çok kaliteli.', CURRENT_TIMESTAMP, 6),
@@ -71,7 +71,7 @@ INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, 
 (9, 'Yunus', 'Karaca', 5, 'Her lokma ayrı güzeldi.', CURRENT_TIMESTAMP, 6),
 (10, 'Burcu', 'İnce', 4, 'Fiyat biraz yüksekti.', CURRENT_TIMESTAMP, 6);
 
--- Tatlıcı Ali (ID = 11)
+
 INSERT INTO review (review_id, reviewer_first_name, reviewer_last_name, rating, comment, created_at, restaurant_id) VALUES
 (11, 'Serhat', 'Yıldız', 5, 'Künefe sıcak geldi, çok iyiydi.', CURRENT_TIMESTAMP, 11),
 (12, 'Gizem', 'Uçar', 5, 'Şerbet oranı tamdı.', CURRENT_TIMESTAMP, 11),

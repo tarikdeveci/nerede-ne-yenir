@@ -6,7 +6,7 @@ import com.example.nerede_ne_yenir_backend.model.Restaurant;
 public class RestaurantMapper {
 
     private RestaurantMapper() {
-        // static util class
+       
     }
 
     public static RestaurantDTO toDTO(Restaurant restaurant) {
@@ -18,7 +18,7 @@ public class RestaurantMapper {
         dto.setAverageRating(restaurant.getAverageRating());
         dto.setReviewCount(restaurant.getReviewCount());
         dto.setCategoryName(restaurant.getCategory().getCategoryName());
-        dto.setImageUrl(restaurant.getImageUrl()); // 🆕 DTO'ya imageUrl aktar
+        dto.setImageUrl(restaurant.getImageUrl()); 
 
         return dto;
     }

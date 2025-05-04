@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo / Brand */}
+        
         <div className="flex items-center space-x-3">
           <img
             src={logo}
@@ -20,7 +20,7 @@ export default function Navbar() {
           </span>
         </div>
 
-        {/* Desktop Links */}
+        
         <div className="hidden md:flex space-x-6 text-gray-700">
           <Link to="/" className="hover:text-gray-900">Ana Sayfa</Link>
           <Link to="/hakkimizda" className="hover:text-gray-900">Hakkımızda</Link>

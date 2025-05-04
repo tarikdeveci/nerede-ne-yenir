@@ -52,7 +52,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<RestaurantDTO> filterRestaurants(String category, Double minRating, Integer minReviews, Integer minPrice, Integer maxPrice) {
         List<Restaurant> preFiltered = restaurantRepository.filterRestaurants(category, minRating, minReviews);
 
-        // ✅ Factory Pattern kullanarak strateji oluştur
+        
         FilterStrategy priceStrategy = FilterStrategyFactory.getStrategy("price", minPrice != null ? minPrice : 0, maxPrice != null ? maxPrice : Integer.MAX_VALUE);
 
         List<Restaurant> priceFiltered = preFiltered.stream()

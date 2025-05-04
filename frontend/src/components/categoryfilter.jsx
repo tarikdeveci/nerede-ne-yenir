@@ -24,7 +24,7 @@ export default function CategoryFilter({ categories = [], onApply, onClose }) {
     setMinReviews('');
     setMinPrice('');
     setMaxPrice('');
-    onApply(null); // filtreyi tamamen kaldır
+    onApply(null); 
     onClose();
   };
 

@@ -23,7 +23,7 @@ export default function ReviewForm({ restaurantId, onSubmitSuccess }) {
     e.preventDefault();
     setLoading(true);
 
-    // rating ve restaurantId'yi Number tipine çevirip payload oluştur
+    
     const payload = {
       ...formData,
       rating: Number(formData.rating),

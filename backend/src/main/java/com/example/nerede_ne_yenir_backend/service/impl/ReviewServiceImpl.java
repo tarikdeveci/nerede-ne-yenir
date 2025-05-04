@@ -42,18 +42,18 @@ public class ReviewServiceImpl implements ReviewService {
         System.out.println(">>> DTO: " + dto);
         System.out.println(">>> restaurantId: " + dto.getRestaurantId());
 
-        // 1. Restoranı bul
+       
         Restaurant restaurant = restaurantRepository.findById(dto.getRestaurantId())
             .orElseThrow(() -> new RuntimeException("Restoran bulunamadı"));
         System.out.println(">>> restoran bulundu: " + restaurant.getRestaurantName());
 
-        // 2. Yeni yorumu kaydet
+        
         Review review = ReviewMapper.toEntity(dto, restaurant);
         System.out.println(">>> review objesi oluşturuldu");
         Review saved = reviewRepository.save(review);
         System.out.println(">>> yorum kaydedildi: ID=" + saved.getReviewId());
 
-        // 3. Ortalama puan ve yorum sayısını güncelle
+       
         Integer reviewCount = restaurant.getReviewCount();
         int oldCount = reviewCount != null ? reviewCount : 0;
         Double averageRating = restaurant.getAverageRating();
@@ -65,13 +65,13 @@ public class ReviewServiceImpl implements ReviewService {
         restaurantRepository.save(restaurant);
         System.out.println(">>> restoran güncellendi: newCount=" + newCount + ", newAvg=" + newAvg);
 
-        // 4. Gözlemcileri tetikle (Observer Pattern)
+       
         ReviewEventManager eventManager = new ReviewEventManager();
         eventManager.subscribe(new LoggerObserver());
         eventManager.subscribe(new RatingUpdater());
         eventManager.notifyAll(restaurant, saved);
 
-        // 5. Kaydedilen yorumu DTO olarak döndür
+       
         return ReviewMapper.toDTO(saved);
     }
 }

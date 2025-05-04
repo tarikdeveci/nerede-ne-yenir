@@ -15,7 +15,7 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Gönderilen iletişim formu:', formData);
-    // Burada form verisini API'ye iletebilirsiniz
+    
   };
 
   return (

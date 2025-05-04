@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
-/**
- * Review: Kullanıcıların restoranlara verdiği yorum ve puanlar
- */
+
 @Entity
 @Table(name = "review")
 @Data
@@ -18,16 +16,16 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    @ManyToOne // Her yorum bir restorana aittir
+    @ManyToOne 
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    private String reviewerFirstName; // Yorumu yapan kişinin adı
-    private String reviewerLastName;  // Soyadı
+    private String reviewerFirstName; 
+    private String reviewerLastName;  
 
-    private Integer rating;           // 1–5 arası puan
+    private Integer rating;           
     @Column(columnDefinition = "TEXT")
-    private String comment;           // Yorum metni
+    private String comment;           
 
-    private LocalDateTime createdAt;  // Yorum tarihi
+    private LocalDateTime createdAt;  
 }

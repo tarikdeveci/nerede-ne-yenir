@@ -10,5 +10,5 @@ public class RestaurantDTO {
     private Double averageRating;
     private Integer reviewCount;
     private String categoryName;
-    private String imageUrl; // 🆕 Görsel linki
+    private String imageUrl; 
 }

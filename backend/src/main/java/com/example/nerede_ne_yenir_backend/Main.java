@@ -20,9 +20,7 @@ public class Main implements CommandLineRunner {
     @Autowired
     private RestaurantService restaurantService;
 
-    // ReviewService henüz terminalde kullanılmadığı için yoruma alındı
-    // @Autowired
-    // private ReviewService reviewService;
+    
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -31,33 +29,32 @@ public class Main implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        // STRATEGY PATTERN TESTİ
+        
         System.out.println("=== STRATEGY PATTERN TEST ===");
         restaurantService.getAllRestaurants().forEach(r -> {
             System.out.println("Restoran: " + r.getRestaurantName() +
                     ", Ortalama Puan: " + r.getAverageRating());
         });
 
-        // FACTORY PATTERN TESTİ
+        
         System.out.println("\n=== FACTORY PATTERN TEST ===");
         FilterStrategy priceStrategy = FilterStrategyFactory.getStrategy("price", 50, 150);
 
         restaurantService.getAllRestaurants().stream()
             .filter(dto -> {
                 Restaurant r = new Restaurant();
-                r.setPriceRange(dto.getPriceRange()); // sadece test için minimal nesne yaratıldı
+                r.setPriceRange(dto.getPriceRange()); 
                 return priceStrategy.matches(r);
             })
             .forEach(dto -> System.out.println("Filtre geçti: " + dto.getRestaurantName()));
 
-        // OBSERVER PATTERN TESTİ
         System.out.println("\n=== OBSERVER PATTERN TEST (Simülasyon) ===");
         Review dummyReview = new Review();
         dummyReview.setReviewerFirstName("Ali");
         dummyReview.setReviewerLastName("Veli");
         dummyReview.setRating(5);
         dummyReview.setComment("Mükemmel bir deneyimdi!");
-        dummyReview.setRestaurant(new Restaurant()); // sadece test için boş nesne
+        dummyReview.setRestaurant(new Restaurant()); 
 
         ReviewEventManager em = new ReviewEventManager();
         em.subscribe(new LoggerObserver());

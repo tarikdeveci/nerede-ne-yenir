@@ -24,7 +24,7 @@ public class RestaurantController {
         return restaurantService.getRestaurantsByCategory(categoryId);
     }
 
-    // 🔍 Filtreleme
+    
     @GetMapping("/filter")
     public List<RestaurantDTO> filterRestaurants(
             @RequestParam(required = false) String category,
@@ -36,7 +36,7 @@ public class RestaurantController {
         return restaurantService.filterRestaurants(category, minRating, minReviews, minPrice, maxPrice);
     }
 
-    // 🔥 Yeni: ID ile restoran getirme
+    
     @GetMapping("/{id}")
     public RestaurantDTO getRestaurantById(@PathVariable Long id) {
         return restaurantService.getRestaurantById(id);

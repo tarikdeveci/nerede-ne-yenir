@@ -1,16 +1,19 @@
 package com.example.nerede_ne_yenir_backend.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.nerede_ne_yenir_backend.dto.RestaurantDTO;
 import com.example.nerede_ne_yenir_backend.mapper.RestaurantMapper;
 import com.example.nerede_ne_yenir_backend.model.Restaurant;
 import com.example.nerede_ne_yenir_backend.repository.RestaurantRepository;
 import com.example.nerede_ne_yenir_backend.repository.ReviewRepository;
 import com.example.nerede_ne_yenir_backend.service.RestaurantService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import com.example.nerede_ne_yenir_backend.service.filter.FilterStrategy;
+import com.example.nerede_ne_yenir_backend.service.filter.FilterStrategyFactory;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -48,21 +51,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List<RestaurantDTO> filterRestaurants(String category, Double minRating, Integer minReviews, Integer minPrice, Integer maxPrice) {
         List<Restaurant> preFiltered = restaurantRepository.filterRestaurants(category, minRating, minReviews);
+
+        // ✅ Factory Pattern kullanarak strateji oluştur
+        FilterStrategy priceStrategy = FilterStrategyFactory.getStrategy("price", minPrice != null ? minPrice : 0, maxPrice != null ? maxPrice : Integer.MAX_VALUE);
+
         List<Restaurant> priceFiltered = preFiltered.stream()
-                .filter(r -> {
-                    try {
-                        String pr = r.getPriceRange();
-                        if (pr == null || !pr.contains("-")) return false;
-                        String[] parts = pr.split("-");
-                        int lower = Integer.parseInt(parts[0].trim());
-                        int upper = Integer.parseInt(parts[1].trim());
-                        if (minPrice != null && lower < minPrice) return false;
-                        if (maxPrice != null && upper > maxPrice) return false;
-                        return true;
-                    } catch (Exception e) {
-                        return false;
-                    }
-                })
+                .filter(priceStrategy::matches)
                 .collect(Collectors.toList());
 
         return priceFiltered.stream()
@@ -74,7 +68,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .collect(Collectors.toList());
     }
 
-    // 🔥 Yeni: ID ile restoran getirme
     @Override
     public RestaurantDTO getRestaurantById(Long id) {
         Restaurant r = restaurantRepository.findById(id)

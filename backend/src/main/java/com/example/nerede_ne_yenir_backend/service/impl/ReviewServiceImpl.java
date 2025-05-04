@@ -69,7 +69,7 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewEventManager eventManager = new ReviewEventManager();
         eventManager.subscribe(new LoggerObserver());
         eventManager.subscribe(new RatingUpdater());
-        eventManager.notifyAll(saved); // saved Review nesnesi gönderildi
+        eventManager.notifyAll(restaurant, saved);
 
         // 5. Kaydedilen yorumu DTO olarak döndür
         return ReviewMapper.toDTO(saved);

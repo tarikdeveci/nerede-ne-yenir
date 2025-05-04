@@ -62,7 +62,7 @@ public class Main implements CommandLineRunner {
         ReviewEventManager em = new ReviewEventManager();
         em.subscribe(new LoggerObserver());
         em.subscribe(new RatingUpdater());
-        em.notifyAll(dummyReview);
+        em.notifyAll(dummyReview.getRestaurant(), dummyReview);
 
         System.out.println("\n✅ Tüm design pattern testleri başarıyla çalıştırıldı.");
     }
